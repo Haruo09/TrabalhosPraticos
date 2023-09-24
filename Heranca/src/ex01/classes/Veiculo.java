@@ -1,17 +1,24 @@
 package ex01.classes;
 
 public class Veiculo {
-    protected String modelo;
-    protected String marca;
-    protected int ano;
-    protected int numeroPortas;
+    // Atributos:
+    private String modelo;
+    private String marca;
+    private int ano;
+    private int numeroPortas;
+    private double velocidade = 0;  // em Km/h
 
-    public Veiculo(String modelo, String marca, int numeroPortas) {
+    // Construtor:
+
+
+    public Veiculo(String modelo, String marca, int ano, int numeroPortas) {
         this.modelo = modelo;
         this.marca = marca;
+        this.ano = ano;
         this.numeroPortas = numeroPortas;
     }
 
+    // To String:
     public String toString() {
         return String.format(
             """
@@ -24,6 +31,21 @@ public class Veiculo {
         );
     }
 
+    // Métodos públicos:
+    public void acelerar(double velocidade) {
+        this.velocidade += Math.abs(velocidade);  // garantindo que o parâmetro não será negativo;
+    }
+
+    public void frear(double velocidade) {
+        velocidade = Math.abs(velocidade);  // garantindo que o parâmetro será positivo.
+        if (velocidade >= this.velocidade) {
+            this.velocidade = 0;
+        } else {
+            this.velocidade -= velocidade;
+        }
+    }
+
+    // Getters & Setters:
     public String getModelo() {
         return modelo;
     }
@@ -54,5 +76,13 @@ public class Veiculo {
 
     public void setNumeroPortas(int numeroPortas) {
         this.numeroPortas = numeroPortas;
+    }
+
+    public double getVelocidade() {
+        return velocidade;
+    }
+
+    public void setVelocidade(double velocidade) {
+        this.velocidade = velocidade;
     }
 }

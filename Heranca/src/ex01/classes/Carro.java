@@ -2,8 +2,8 @@ package ex01.classes;
 
 public class Carro extends Veiculo {
 
-    public Carro(String modelo, String marca, int numeroPortas) {
-        super(modelo, marca, numeroPortas);
+    public Carro(String modelo, String marca, int ano, int numeroPortas) {
+        super(modelo, marca, ano, numeroPortas);
     }
 
     @Override
@@ -12,10 +12,10 @@ public class Carro extends Veiculo {
             """
             ============ CARRO ============
             Modelo: %s
-            Marca: %s 
+            Marca: %s
             Ano: %d
             Número de Portas: %d
-            """, modelo, marca, ano, numeroPortas
+            """, getModelo(), getMarca(), getAno(), getNumeroPortas()
         );
     }
 }
