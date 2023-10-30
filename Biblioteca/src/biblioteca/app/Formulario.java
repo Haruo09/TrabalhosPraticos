@@ -1,16 +1,28 @@
 package biblioteca.app;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
-public class  Formulario {
+public class Formulario {
     public static void main(String[] args) {
-        // Presets:
+        // Presets da janela:
         JFrame janela = new JFrame("Biblioteca");
         janela.setSize(600,700);
         janela.setLayout(null);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        janela.getContentPane().setBackground(Color.CYAN);
+        janela.getContentPane().setBackground(Color.black);
+
+        // Presets dos itens:
+        UIManager.put("Label.foreground", Color.white);
+        UIManager.put("Label.font", Font.decode("Inter Thin 13"));
+        UIManager.put("TextField.background", Color.decode("#D9D9D9"));
+        UIManager.put("TextArea.background", Color.decode("#D9D9D9"));
+        UIManager.put("RadioButton.background", Color.black);
+        UIManager.put("RadioButton.foreground", Color.white);
+        UIManager.put("RadioButton.border", null);
+        UIManager.put("RadioButton.font", Font.decode("Inter Thin 12"));
+        UIManager.put("Button.foreground", Color.white);
 
         // Labels:
         JLabel lblNome = new JLabel("Nome:");
@@ -30,50 +42,82 @@ public class  Formulario {
         JTextField txtCPF = new JTextField();
         JTextField txtLivro = new JTextField();
         JTextField txtEmail = new JTextField();
-        JTextField txtSitua = new JTextField();
         JTextField txtDevolu = new JTextField();
         JTextField txtOutros = new JTextField();
 
-        //Radio
-        JRadioButton rbtnNenhum = new JRadioButton();
-        JRadioButton rbtnPeriodo = new JRadioButton();
-        JRadioButton rbtnEmprestimo = new JRadioButton();
-        JRadioButton rbtnOutro = new JRadioButton();
+        // Resetando todas as bordas na mão, porque o UIManager nn funciona:
+        txtNome.setBorder(null);
+        txtContato.setBorder(null);
+        txtData.setBorder(null);
+        txtCPF.setBorder(null);
+        txtLivro.setBorder(null);
+        txtEmail.setBorder(null);
+        txtDevolu.setBorder(null);
+        txtOutros.setBorder(null);
 
+        // RadioButtons:
+        JRadioButton rbtnNenhum = new JRadioButton("Nenhum(a)");
+        JRadioButton rbtnPeriodo = new JRadioButton("Período");
+        JRadioButton rbtnEmprestimo = new JRadioButton("Emprestado");
+        JRadioButton rbtnOutro = new JRadioButton("Outros");
+
+        // Buttons:
         JButton btnSalvar = new JButton("Salvar");
-        JButton btnCancelar = new JButton("cancelar");
+        JButton btnCancelar = new JButton("Cancelar");
 
+        // ButtonGroups:
+        ButtonGroup btnGroupData = new ButtonGroup();
+        btnGroupData.add(rbtnNenhum);
+        btnGroupData.add(rbtnPeriodo);
+
+        ButtonGroup btnGroupSituacao = new ButtonGroup();
+        btnGroupSituacao.add(rbtnEmprestimo);
+        btnGroupSituacao.add(rbtnOutro);
+
+        // Definindo o estilo dos botões:
+        btnSalvar.setBackground(Color.decode("#6D9F2D"));
+        btnCancelar.setBackground(Color.decode("#D24A4A"));
+        btnSalvar.setBorder(null);
+        btnCancelar.setBorder(null);
+
+        // TextArea:
         JTextArea txtLivros = new JTextArea();
+        txtLivros.setBorder(null);
 
-        lblNome.setBounds(48, 86, 502, 25);
-        lblContato.setBounds(48, 149, 156, 25);
-        lblData.setBounds(223, 149, 122, 25);
-        lblCPF.setBounds(363, 149, 187, 25);
-        lblLivro.setBounds(48, 212, 222, 25);
-        lblEmail.setBounds(289, 212, 261, 25);
-        lblSitua.setBounds(373, 323, 67, 15);
-        lblDevolu.setBounds(48, 318, 222, 25);
-        lblLivros.setBounds(49, 381, 501, 150);
+        // Posicionando os Labels:
+        lblNome.setBounds(48, 66, 502, 20);
+        lblContato.setBounds(48, 129, 156, 20);
+        lblData.setBounds(223, 129, 122, 20);
+        lblCPF.setBounds(363, 129, 187, 20);
+        lblLivro.setBounds(48, 192, 222, 20);
+        lblEmail.setBounds(289, 192, 261, 20);
+        lblSitua.setBounds(289, 255, 168, 20);
+        lblDevolu.setBounds(48, 255, 222, 20);
+        lblLivros.setBounds(48, 361, 501, 20);
 
-        txtNome.setBounds(48,66, 502, 20);
-        txtContato.setBounds(48,129, 156, 20);
-        txtData.setBounds(223,129, 122, 20);
-        txtCPF.setBounds(363,129, 187, 20);
-        txtLivro.setBounds(48,192, 222, 20);
-        txtEmail.setBounds(289,192, 261, 20);
-        txtSitua.setBounds(289,255, 168, 20);
-        txtDevolu.setBounds(48,222, 255, 20);
-        txtLivros.setBounds(49,361, 501, 20);
-        txtOutros.setBounds(308,321,168,20);
+        // Posicionando os TextFields:
+        txtNome.setBounds(48,86,503, 25);
+        txtContato.setBounds(48,149,156,25);
+        txtData.setBounds(223,149,122,25);
+        txtCPF.setBounds(362,149,189,25);
+        txtLivro.setBounds(48,212,222,25);
+        txtEmail.setBounds(290,212,261,25);
+        txtDevolu.setBounds(48,318,222,25);
+        txtLivros.setBounds(48,381,501,150);
+        txtOutros.setBounds(373,318,178,25);
 
-        rbtnNenhum.setBounds(48,290,12,12);
-        rbtnPeriodo.setBounds(156,290,12,12);
-        rbtnEmprestimo.setBounds(289,294,12,12);
-        rbtnOutro.setBounds(291,325,12,12);
+        // Posicionando os RadioButtons:
+        rbtnNenhum.setBounds(48,290,96+12,12);
+        rbtnPeriodo.setBounds(156,290,102+12,12);
+        rbtnEmprestimo.setBounds(289,294,173+12,12);
+        rbtnOutro.setBounds(289,325,70+12,12);
 
+        // Posicionando os Botões:
         btnSalvar.setBounds(325,584,99,38);
         btnCancelar.setBounds(455,584,95,38);
 
+
+        // Adicionando os Labels:
         janela.add(lblNome);
         janela.add(lblContato);
         janela.add(lblData);
@@ -84,28 +128,28 @@ public class  Formulario {
         janela.add(lblDevolu);
         janela.add(lblLivros);
 
-
+        // Adicionando os Text Fields:
         janela.add(txtNome);
         janela.add(txtContato);
         janela.add(txtData);
         janela.add(txtCPF);
         janela.add(txtLivro);
         janela.add(txtEmail);
-        janela.add(txtSitua);
         janela.add(txtDevolu);
         janela.add(txtLivros);
         janela.add(txtOutros);
 
-
+        // Adicionando os RadioButtons:
         janela.add(rbtnNenhum);
         janela.add(rbtnPeriodo);
         janela.add(rbtnEmprestimo);
         janela.add(rbtnOutro);
 
-
+        // Adicionando os Buttons:
         janela.add(btnSalvar);
         janela.add(btnCancelar);
 
+        // Tornando a janela visível:
         janela.setVisible(true);
     }
 }
