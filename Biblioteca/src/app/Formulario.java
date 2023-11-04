@@ -1,18 +1,14 @@
-package biblioteca.app;
+package app;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
 
 public class Formulario {
     public static void main(String[] args) {
         // Presets da janela:
         JFrame janela = new JFrame("Biblioteca");
         JPanel panel = new JPanel();
-//        panel.setBackground(Color.white);
         janela.setSize(1000,1000);
         panel.setLayout(null);
         janela.setLayout(null);
@@ -20,16 +16,12 @@ public class Formulario {
         janela.getContentPane().setBackground(Color.decode("#24094f"));
 
         // Presets dos itens:
-//        UIManager.put("Label.foreground", Color.white);
         UIManager.put("Label.font", Font.decode("Inter Thin 13"));
         UIManager.put("TextField.border", null);
         UIManager.put("TextField.background", Color.decode("#D9D9D9"));
         UIManager.put("TextArea.background", Color.decode("#D9D9D9"));
-//        UIManager.put("RadioButton.background", Color.black);
-//        UIManager.put("RadioButton.foreground", Color.white);
         UIManager.put("RadioButton.border", null);
         UIManager.put("RadioButton.font", Font.decode("Inter Thin 12"));
-//        UIManager.put("Button.foreground", Color.white);
 
         // Labels:
         JLabel lblNome = new JLabel("Nome:");
@@ -69,7 +61,8 @@ public class Formulario {
         JRadioButton rbtnOutro = new JRadioButton("Outros");
 
         // Buttons:
-        JButton btnSalvar = new JButton("Salvar");
+        JButton btnCadastrar = new JButton("Cadastrar");
+        JButton btnLimpar = new JButton("Limpar");
         JButton btnCancelar = new JButton("Cancelar");
 
         // ButtonGroups:
@@ -82,9 +75,12 @@ public class Formulario {
         btnGroupSituacao.add(rbtnOutro);
 
         // Definindo o estilo dos botões:
-        btnSalvar.setBackground(Color.decode("#6D9F2D"));
+        btnCadastrar.setBackground(Color.decode("#6D9F2D"));
+        btnLimpar.setBackground(Color.decode("#54C8ED"));
         btnCancelar.setBackground(Color.decode("#D24A4A"));
-        btnSalvar.setBorder(null);
+
+        btnCadastrar.setBorder(null);
+        btnLimpar.setBorder(null);
         btnCancelar.setBorder(null);
 
         // TextArea:
@@ -96,8 +92,6 @@ public class Formulario {
         lblContato.setBounds(48, 129, 156, 20);
         lblData.setBounds(223, 129, 122, 20);
         lblCPF.setBounds(363, 129, 187, 20);
-//        lblLivro.setBounds(48, 192, 222, 20);
-//        lblEmail.setBounds(289, 192, 261, 20);
         lblEmail.setBounds(48, 192, 502, 20);
         lblSitua.setBounds(289, 255, 168, 20);
         lblDevolu.setBounds(48, 255, 222, 20);
@@ -108,8 +102,6 @@ public class Formulario {
         txtContato.setBounds(48,149,156,25);
         txtData.setBounds(223,149,122,25);
         txtCPF.setBounds(362,149,189,25);
-//        txtLivro.setBounds(48,212,222,25);
-//        txtEmail.setBounds(290,212,261,25);
         txtEmail.setBounds(48, 212, 502, 25);
         txtDevolu.setBounds(48,318,222,25);
         txtLivros.setBounds(48,381,501,150);
@@ -122,44 +114,57 @@ public class Formulario {
         rbtnOutro.setBounds(289,325,70+12,12);
 
         // Posicionando os Botões:
-        btnSalvar.setBounds(325,614,99,38);
-        btnCancelar.setBounds(455,614,95,38);
+        btnCadastrar.setBounds(195,628,99,38);
+        btnLimpar.setBounds(325,628,95,38);
+        btnCancelar.setBounds(455, 628, 95, 38);
 
         // Criando a CheckBox:
         JCheckBox ckbTermosECondicoes = new JCheckBox("Aceito os Termos e Condições");
-        ckbTermosECondicoes.setBounds(48, 584, 600, 20);
+        ckbTermosECondicoes.setBounds(48, 567, 200, 25);
+        ckbTermosECondicoes.setFont(Font.decode("Inter Thin 13"));
 
         // Configurando os botões:
-        btnSalvar.addActionListener(e -> {
+        btnCadastrar.addActionListener(e -> {
             if (!ckbTermosECondicoes.isSelected()) {
-                System.out.println("\u001b[1;31mTermos e Condições não aceitos: não foi possível salvar.\u001b[m");
-                return;
+                JOptionPane.showMessageDialog(janela, "Termos e Condições não aceitos: não foi possível salvar.");
+            } else if (
+                    txtNome.getText().equals("") ||
+                    txtContato.getText().equals("") ||
+                    txtData.getText().equals("") ||
+                    txtCPF.getText().equals("") ||
+                    txtEmail.getText().equals("") ||
+                    txtLivros.getText().equals("") ||
+                    btnGroupData.getSelection() == null ||
+                    btnGroupSituacao.getSelection() == null
+            ) {
+                JOptionPane.showMessageDialog(janela, "Campos não completamente preenchidos.");
+            } else {
+                JOptionPane.showMessageDialog(janela, String.format(
+                        """
+                        CADASTRO REALIZADO COM SUCESSO!
+                        
+                        Nome: %s
+                        Contato: %s
+                        Data: %s
+                        CPF: %s
+                        Email: %s
+                        Data de devolução: %s
+                        Situação: %s
+                        
+                        Livros emprestados:
+                        """,
+                        txtNome.getText(),
+                        txtContato.getText(),
+                        txtData.getText(),
+                        txtCPF.getText(),
+                        txtEmail.getText(),
+                        (rbtnNenhum.isSelected())?"Sem devolução":txtDevolu.getText(),
+                        (rbtnEmprestimo.isSelected())?"Emprestado":txtOutros.getText()
+                ) + txtLivros.getText());
             }
-            System.out.printf(
-                """
-                    Nome: %s
-                    Contato: %s
-                    Data: %s
-                    CPF: %s
-                    Email: %s
-                    Data de devolução: %s
-                    Situação: %s
-                    
-                    Livros emprestados:
-                    """,
-                    txtNome.getText(),
-                    txtContato.getText(),
-                    txtData.getText(),
-                    txtCPF.getText(),
-                    txtEmail.getText(),
-                    (rbtnNenhum.isSelected())?"Sem devolução":txtDevolu.getText(),
-                    (rbtnEmprestimo.isSelected())?"Emprestado":txtOutros.getText()
-            );
-
-            System.out.println(txtLivros.getText());
         });
 
-        btnCancelar.addActionListener(e -> {
+        btnLimpar.addActionListener(e -> {
             txtNome.setText(null);
             txtContato.setText(null);
             txtData.setText(null);
@@ -169,6 +174,18 @@ public class Formulario {
             btnGroupSituacao.clearSelection();
             txtLivros.setText(null);
             ckbTermosECondicoes.setSelected(false);
+        });
+
+        btnCancelar.addActionListener(e -> {
+            int escolha = JOptionPane
+                    .showConfirmDialog(
+                            janela,
+                            "Deseja cancelar a operação?",
+                            "Confirmação", JOptionPane.OK_CANCEL_OPTION
+                    );
+            if (escolha == JOptionPane.OK_OPTION) {
+                janela.dispose();
+            }
         });
 
         // Adicionando os Labels:
@@ -203,7 +220,8 @@ public class Formulario {
         panel.add(ckbTermosECondicoes);
 
         // Adicionando os Buttons:
-        panel.add(btnSalvar);
+        panel.add(btnCadastrar);
+        panel.add(btnLimpar);
         panel.add(btnCancelar);
 
         // Tornando a janela visível:
