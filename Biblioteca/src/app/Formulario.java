@@ -14,6 +14,7 @@ public class Formulario {
         janela.setLayout(null);
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.getContentPane().setBackground(Color.decode("#24094f"));
+        janela.setIconImage(new ImageIcon("./images/book.png").getImage());
 
         // Presets dos itens:
         UIManager.put("Label.font", Font.decode("Inter Thin 13"));
