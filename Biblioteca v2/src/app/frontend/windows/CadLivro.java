@@ -1,18 +1,18 @@
-package app.frontend.panels;
+package app.frontend.windows;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CadLivro extends JPanel {
+public class CadLivro extends JFrame {
     // 1 Componentes da tela:
     // 1.1 Labels:
-    Map<String, JLabel> labelMap = new HashMap<>();
+    private final Map<String, JLabel> labelMap = new HashMap<>();
     // 1.2 TextFields:
-    Map<String, JTextField> textFieldMap = new HashMap<>();
+    private final Map<String, JTextField> textFieldMap = new HashMap<>();
     // 1.3 Botões:
-    Map<String, JButton> buttonMap = new HashMap<>();
+    private final Map<String, JButton> buttonMap = new HashMap<>();
 
     // 2 Bloco de inicialização:
     {
@@ -60,6 +60,7 @@ public class CadLivro extends JPanel {
                     "Confirmação",
                     JOptionPane.OK_CANCEL_OPTION
                 );
+            if (escolha == JOptionPane.OK_OPTION) this.dispose();
         });
     }
 
@@ -91,20 +92,28 @@ public class CadLivro extends JPanel {
         this.buttonMap.get("btnLimpar").setBorder(null);
         this.buttonMap.get("btnCadastrar").setBorder(null);
 
-
         // 3.3 Definindo estilos específicos:
         this.labelMap.get("lblTitulo").setHorizontalAlignment(0);
         this.labelMap.get("lblTitulo").setFont(Font.decode("Inter Regular 25"));
         this.buttonMap.get("btnCadastrar").setBackground(new Color(0, 171, 243));
         this.buttonMap.get("btnLimpar").setBackground(new Color(145, 221, 251));
         this.buttonMap.get("btnCancelar").setBackground(new Color(251, 78, 66));
-
+    
         // 3.4 Adicionando os elementos à janela:
-        for (JLabel label : labelMap.values()) { this.add(label); }
-        for (JTextField field : textFieldMap.values()) { this.add(field); }
-        for (JButton button : buttonMap.values()) { this.add(button); }
+        for (JLabel label : labelMap.values()) this.add(label);
+        for (JTextField field : textFieldMap.values()) this.add(field);
+        for (JButton button : buttonMap.values()) this.add(button);
+    }
 
-        // 3.4 Tornando a janela visível:
-        this.setVisible(true);
+    public Map<String, JLabel> getLabelMap() {
+        return labelMap;
+    }
+
+    public Map<String, JTextField> getTextFieldMap() {
+        return textFieldMap;
+    }
+
+    public Map<String, JButton> getButtonMap() {
+        return buttonMap;
     }
 }

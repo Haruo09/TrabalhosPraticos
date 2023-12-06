@@ -1,18 +1,18 @@
-package app.frontend.panels;
+package app.frontend.windows;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CadUsuario extends JPanel {
+public class CadUsuario extends JFrame {
     // 1 Componentes da tela:
     // 1.1 Labels:
-    Map<String, JLabel> labelMap = new HashMap<>();
+    private final Map<String, JLabel> labelMap = new HashMap<>();
     // 1.2 TextFields:
-    Map<String, JTextField> textFieldMap = new HashMap<>();
+    private final Map<String, JTextField> textFieldMap = new HashMap<>();
     // 1.3 Botões:
-    Map<String, JButton> buttonMap = new HashMap<>();
+    private final Map<String, JButton> buttonMap = new HashMap<>();
 
     // 2 Bloco de inicialização:
     {
@@ -20,7 +20,6 @@ public class CadUsuario extends JPanel {
         UIManager.put("Label.font", "Inter Regular 15");
         UIManager.put("TextField.font", "Inter Regular 15");
         UIManager.put("Button.font", "Inter Regular 15");
-//        UIManager.put("Button.foreground", Color.white);
         UIManager.put("Button.border", null);
 
         // 2.1 Criando os Labels:
@@ -30,7 +29,7 @@ public class CadUsuario extends JPanel {
         labelMap.put("lblCPF", new JLabel("CPF:"));
         labelMap.put("lblSenha", new JLabel("Senha"));
 
-        // 2.2 Criando os TextFields:
+        // 2.2 Criando os TextFields:.
         textFieldMap.put("txtNome", new JTextField());
         textFieldMap.put("txtDataNasc", new JTextField());
         textFieldMap.put("txtCPF", new JTextField());
@@ -60,7 +59,7 @@ public class CadUsuario extends JPanel {
                     "Confirmação",
                     JOptionPane.OK_CANCEL_OPTION
                 );
-
+            if (escolha == JOptionPane.OK_OPTION) this.dispose();
         });
     }
 
@@ -92,7 +91,6 @@ public class CadUsuario extends JPanel {
         this.buttonMap.get("btnLimpar").setBorder(null);
         this.buttonMap.get("btnCadastrar").setBorder(null);
 
-
         // 3.3 Definindo estilos específicos:
         this.labelMap.get("lblTitulo").setHorizontalAlignment(0);
         this.labelMap.get("lblTitulo").setFont(Font.decode("Inter Regular 25"));
@@ -104,8 +102,18 @@ public class CadUsuario extends JPanel {
         for (JLabel label : labelMap.values()) { this.add(label); }
         for (JTextField field : textFieldMap.values()) { this.add(field); }
         for (JButton button : buttonMap.values()) { this.add(button); }
+    }
 
-        // 3.4 Tornando a janela visível:
-        this.setVisible(true);
+    // Getters:
+    public Map<String, JLabel> getLabelMap() {
+        return labelMap;
+    }
+
+    public Map<String, JTextField> getTextFieldMap() {
+        return textFieldMap;
+    }
+
+    public Map<String, JButton> getButtonMap() {
+        return buttonMap;
     }
 }
