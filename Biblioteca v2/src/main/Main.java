@@ -1,10 +1,12 @@
 package main;
 
-import app.frontend.windows.MainPanel;
+import app.frontend.MainPane;
+
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        MainPanel mainPanel = new MainPanel();
-        mainPanel.setVisible(true);
+    public static void main(String[] args) throws IOException {
+        MainPane mainPane = new MainPane();
+        mainPane.setVisible(true);
     }
 }
